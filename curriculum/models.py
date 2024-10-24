@@ -4,13 +4,7 @@ from django.contrib.auth.models import User
 
 
 
-class PersonalData(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='personal_data',
-        null=True
-    )    
+class PersonalData(models.Model):    
     birthday = models.DateField()
     cpf = models.CharField(
         max_length=14,
@@ -30,6 +24,9 @@ class PersonalData(models.Model):
             ('DIVORCED', 'Divorced'),
             ('WIDOWED', 'Widowed'),
         ]
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):

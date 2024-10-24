@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="pt-BR">
+<head>
+    {% include 'global/partials/head.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Currículos{% endblock %}</title>
+    
+<body>
+    {% include 'global/partials/header.html' %}
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+
+</body>
+
+</html>

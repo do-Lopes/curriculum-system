@@ -1,6 +1,29 @@
+{% extends 'global/base.html' %}
+
+
+{% block content %}
 <div class="main-content center container">
     <h2>Dashboard {{ user }}</h2>
     {% include 'authors/partials/login_message.html' %}
+
+    <div class="authors-dashboard-container">
+        <h3>Your curriculum</h3>
+        
+
+            <p>CPF: {{ personalData }}</p>
+            {% comment %} <p>Birthday: {{ data.birthday }}</p>
+            <p>Marital Status: {{ data.marital_status }}</p>
+            <p>User: {{ data.user.username }}</ {% endcomment %}
+        {% comment %} {% empty %}
+            <p>Nenhum curriculo cadastrado</p> {% endcomment %}
+        
+
+        
+
+
+        <p>{{test}}</p>
+    </div>
 </div>
 
 {% include 'global/partials/form.html' %}
+{% endblock content %}
