@@ -1,12 +1,13 @@
-{% if request.user.is_authenticated %}
-        <div>
-        You are logged in with
-        {{ request.user.username }}.
-        Please,
-            <form action="{% url 'authors:logout' %}" method="POST">
-                {%csrf_token %}
-                <input type="hidden" name="username" value="{{ request.user.username }}">
-                <button type="submit">Click here</button>
-            </form> to logout
-        </div>
-    {% endif %}
+{% if user.is_authenticated %}
+    <div class="login-status">
+        <span>You are logged in with </span>
+        {{ request.user.username }}
+        <span>. Please, </span>
+        <form class="inline-logout-form" action="{% url 'authors:logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ request.user.username }}">
+            <button type="submit" class="link-button">click here</button>
+        </form>
+        <span> to logout.</span>
+    </div>
+{% endif %}

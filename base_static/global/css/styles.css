@@ -59,6 +59,10 @@
     line-height: 1.4; 
 }
 
+.curriculum-section-text p {
+    margin-bottom: 0.5rem;
+}
+
 .curriculum-section-text h6 b {
     font-size: 1.1rem; 
     color: #333; 
@@ -354,3 +358,29 @@
     }
 }
 
+.login-status {
+    padding: 4px 16px;
+    font-size: 20px;
+    background: none; 
+}
+
+.inline-logout-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: normal;
+}
+
+.link-button:hover {
+    color: #0056b3;
+}

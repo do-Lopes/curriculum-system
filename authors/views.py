@@ -5,7 +5,7 @@ from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from curriculums.models import PersonalData, ProfessionalExperience, Contact, Education
+from curriculums.models import PersonalData
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -79,22 +79,32 @@ def logout_view(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
-    personalData = PersonalData.objects.filter(
-        user=request.user)
-
-    # contact = Contact.objects.filter(
-    #    #person=personalData.
-    # )
-    # professioalExperience = ProfessionalExperience.objects.filter(
-    #    person=request.user
-    # )
-    # education = Education.objects.filter(
-    #    person=request.user
-    # )
+    curriculum = PersonalData.objects.select_related('user', 'contact').prefetch_related(
+        'experiences', 
+        'education'
+    ).filter(
+        user=request.user
+    ).first()
     return render(request, 'authors/pages/dashboard.html',
     context={
-       'personalData': personalData,
-    #    'contact': contact,
-    #    'professioalExperience': professioalExperience,
-    #    'education': education,
+       'curriculum': curriculum,
+   })
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_edit(request, id):
+    curriculum = PersonalData.objects.select_related('user', 'contact').prefetch_related(
+        'experiences', 
+        'education'
+    ).filter(
+        user=request.user,
+        pk=id
+    )
+    print(curriculum.cpf)
+    if not curriculum:
+        raise Http404()
+    
+
+    return render(request, 'authors/pages/dashboard_view.html',
+    context={
+       'curriculum': curriculum,
    })
