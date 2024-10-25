@@ -4,15 +4,15 @@
     {% include 'global/partials/head.html' %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sistema de Currículos{% endblock %}</title>
-    
-<body>
-    {% include 'global/partials/header.html' %}
-    <main>
+    <title>{% block title %}{% endblock %} | Curriculum System</title>
+    <link rel="stylesheet" href="{% static 'css/curriculo-styles.css' %}">
+</head>
+<body class="curriculo-body">
+    <header class="curriculo-header">
+        <h1 class="curriculo-header__title">Curriculum System</h1>
+    </header>
+    <main class="curriculo-main">
         {% block content %}{% endblock content %}
     </main>
-
-
 </body>
-
 </html>

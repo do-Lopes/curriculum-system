@@ -1,0 +1,53 @@
+<div class="curriculum-card">
+    <div class="curriculum-header">
+        <h3 class="curriculum-title">{{ curriculum.user.first_name }} {{ curriculum.user.last_name }}</h3>
+    </div>
+
+    <div class="curriculum-person">
+        <span class="curriculum-person-item">
+            <i class="fas fa-envelope"></i>
+            {{ curriculum.user.email }} | {{ curriculum.contact.phone }}
+        </span>
+
+        {% if curriculum.experiences.current %}
+            <div class="curriculum-content">
+                <p>{{ curriculum.experiences.last }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="curriculum-details-container">
+        {% if curriculum.experiences %}
+            <div class="curriculum-section curriculum-experience">        
+                <h4 class="curriculum-section-title"><i class="fas fa-stopwatch"></i> Experience</h4>
+                <div class="curriculum-section-text">
+                    {% for exp in curriculum.experiences.all %}
+                        <h6><b>{{ exp.position }}</b> | {{exp.company}} | {% if exp.current %}Current ✅{% else %}{{exp.start_date}} - {{exp.end_date}}{% endif %}</h6>
+                        <p>Description</p>
+                        <p>{{ exp.description|truncatechars:150 }}</p>
+                    {% endfor %}                
+                </div>
+            </div>
+        {% endif %}
+        {% if curriculum.education %}
+            <div class="curriculum-section curriculum-education">        
+                <h4 class="curriculum-section-title"><i class="fas fa-graduation-cap"></i> Academic Formation</h4>
+                <div class="curriculum-section-text">
+                    {% for edu in curriculum.education.all %}
+                        <p>{{ edu.degree }} | {{ edu.course }} at {{edu.institution}} | {% if edu.in_progress %}Current ✅{% else %}{{edu.start_date}} - {{edu.completion_date}}{% endif %}</p>
+                        <p>{{ edu.description }}</p>
+                    {% endfor %}                
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if detail_page is not True %}
+        <footer class="curriculum-footer">
+            <a class="curriculum-more button button-dark button-full-width" href="{% url 'curriculums:curriculum' curriculum.id %}">
+                <i class="fas fa-eye"></i>
+                <span>see more...</span>
+            </a>
+        </footer>
+    {% endif %}    
+</div>

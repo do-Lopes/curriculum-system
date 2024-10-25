@@ -108,7 +108,7 @@ class AuthorRegisterFormIntegrationTeste(DjangoTestCase):
         self.assertIn(msg, response.context['form'].errors.get('password'))
         self.assertIn(msg, response.content.decode('utf-8'))
 
-        self.form_data['password'] = '@A123abc123'
+        self.form_data['password'] = 'Abc123456'
         url = reverse('authors:register_create')
         response = self.client.post(url, data=self.form_data, follow=True)
         self.assertNotIn(msg, response.context['form'].errors.get('password'))
@@ -122,7 +122,7 @@ class AuthorRegisterFormIntegrationTeste(DjangoTestCase):
 
         msg = 'Passwords must be equal'
 
-        self.assertIn(msg, response.context['form'].errors.get('password'))
+        self.assertIn(msg, response.context['form'].errors.get('password2'))
         self.assertIn(msg, response.content.decode('utf-8'))
 
 

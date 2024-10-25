@@ -7,10 +7,12 @@
     {% include 'authors/partials/login_message.html' %}
 
     <div class="authors-dashboard-container">
-        <h3>Your curriculum</h3>
-        
+        <h3>Your curriculums</h3>
+        {% for data in personalData %}
+            <p>CPF: {{ data.cpf }}</p>
+        {% endfor %}
 
-            <p>CPF: {{ personalData }}</p>
+            
             {% comment %} <p>Birthday: {{ data.birthday }}</p>
             <p>Marital Status: {{ data.marital_status }}</p>
             <p>User: {{ data.user.username }}</ {% endcomment %}
@@ -25,5 +27,5 @@
     </div>
 </div>
 
-{% include 'global/partials/form.html' %}
+{% comment %} {% include 'global/partials/form.html' %} {% endcomment %}
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import PersonalData, Contact, ProfessionalExperience, Education
-from utils.django_curriculum_admin import  UserDisplayMixin
+from utils.django_curriculums_admin import  UserDisplayMixin
 
 
 @admin.register(PersonalData)

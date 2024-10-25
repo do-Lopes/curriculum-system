@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('start_date', models.DateField()),
                 ('completion_date', models.DateField(blank=True, null=True)),
                 ('in_progress', models.BooleanField(default=False)),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='education', to='curriculum.personaldata')),
+                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='education', to='curriculums.personaldata')),
             ],
             options={
                 'verbose_name': 'Education',
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(max_length=100)),
                 ('state', models.CharField(max_length=2)),
                 ('zip_code', models.CharField(max_length=9, validators=[django.core.validators.RegexValidator(message='ZIP code must be in the format XXXXX-XXX', regex='^\\d{5}-\\d{3}$')])),
-                ('person', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='contact', to='curriculum.personaldata')),
+                ('person', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='contact', to='curriculums.personaldata')),
             ],
         ),
         migrations.CreateModel(
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ('end_date', models.DateField(blank=True, null=True)),
                 ('current', models.BooleanField(default=False)),
                 ('description', models.TextField()),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='experiences', to='curriculum.personaldata')),
+                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='experiences', to='curriculums.personaldata')),
             ],
             options={
                 'verbose_name': 'Professional Experience',

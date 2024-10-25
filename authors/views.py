@@ -5,7 +5,7 @@ from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from curriculum.models import PersonalData, ProfessionalExperience, Contact, Education
+from curriculums.models import PersonalData, ProfessionalExperience, Contact, Education
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -80,7 +80,7 @@ def logout_view(request):
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
     personalData = PersonalData.objects.filter(
-        user=request.user).values()
+        user=request.user)
 
     # contact = Contact.objects.filter(
     #    #person=personalData.

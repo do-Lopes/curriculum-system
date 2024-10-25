@@ -1,0 +1,356 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.curriculo-body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.curriculo-header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.curriculo-header__title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.curriculo-main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .curriculo-header__title {
+        font-size: 1.5rem;
+    }
+    
+    .curriculo-main {
+        margin: 1rem auto;
+    }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.curriculum-section-text h6 {
+    font-size: 1.1rem; 
+    margin-bottom: 0.5rem; 
+    line-height: 1.4; 
+}
+
+.curriculum-section-text h6 b {
+    font-size: 1.1rem; 
+    color: #333; 
+}
+
+.curriculum-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.curriculum-header {
+    padding: 1rem;
+    background: #f8f9fa;
+}
+
+.curriculum-title {
+    font-size: 1.6rem;
+    margin: 0;
+    color: #212529;
+}
+
+.curriculum-person {
+    padding: 0 1rem;
+    margin: 1rem 0;
+}
+
+.curriculum-person-item {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.curriculum-content {
+    padding: 0 1rem;
+    color: #666;
+}
+
+.curriculum-details-container {
+    padding: 1rem;
+    background: #f8f9fa;
+}
+
+.curriculum-section {
+    margin-bottom: 1rem;
+}
+
+.curriculum-section-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #212529;
+}
+
+.curriculum-section-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.curriculum-footer {
+    margin-top: auto;
+    padding: 1rem;
+    background: #f8f9fa;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.button-dark {
+    background: #212529;
+    color: white;
+}
+
+.button-full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.auth-register-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    background-color: #f0f0f0;
+}
+
+.auth-register-row {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-register-card-wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
+.auth-register-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-register-card__body {
+    padding: 2rem;
+}
+
+.auth-register-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.auth-register-form__field-wrapper {
+    width: 100%;
+}
+
+.auth-register-form__group {
+    margin-bottom: 1rem;
+}
+
+.auth-register-form__label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.auth-register-form__input-wrapper input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.auth-register-form__input-wrapper input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.auth-register-form__help-text {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.auth-register-form__error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.auth-register-form__alert {
+    background-color: #fff3f3;
+    border: 1px solid #ffcdd2;
+    color: #dc3545;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.auth-register-form__actions {
+    margin-top: 2rem;
+}
+
+.auth-register-form__submit-btn {
+    background-color: #212529;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.auth-register-form__submit-btn:hover {
+    background-color: #343a40;
+}
+
+.auth-register-footer {
+    text-align: center;
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .auth-register-form__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-register-card__body {
+        padding: 1.5rem;
+    }
+}
+
+.main-content{
+    padding-top: 0%;
+    
+}
+
+.center {
+    text-align: center;
+}
+
+.container {
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: var(--spacing-gutter-medium);
+}
+
+.messages-container {
+    max-width: 800px;
+    margin: 0 auto 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.message {
+    padding: 1rem;
+    margin: 0;
+    border: none;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.warning {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffe0b2;
+}
+
+.info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+@media (max-width: 768px) {
+    .messages-container {
+        padding: 0 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .message {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+

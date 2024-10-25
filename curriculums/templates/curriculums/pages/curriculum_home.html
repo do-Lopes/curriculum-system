@@ -1,0 +1,12 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <div class="grid-container">
+        {% for curriculum in curriculums %}
+            {% include 'curriculums/partials/curriculum.html' %}            
+        {% endfor %}
+    </div>
+
+{% endblock %}
