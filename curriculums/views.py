@@ -1,14 +1,13 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from .models import PersonalData, Contact
-
-# Create your views here.
+from .models import PersonalData
 
 def curriculums_home(request):
     curriculums = PersonalData.objects.select_related('user', 'contact').prefetch_related(
     'experiences', 
     'education'
-).order_by('-id')
+    ).filter(
+        is_published=True
+    ).order_by('-id')
     return render(request, 'curriculums/pages/curriculum_home.html',
     context={
         'curriculums': curriculums,

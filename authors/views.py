@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ContactForm, EducationForm, ProfessionalExperienceForm
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from curriculums.models import PersonalData
+from curriculums.models import PersonalData, Education, Contact, ProfessionalExperience
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -25,9 +25,8 @@ def register_create(request):
     form = RegisterForm(POST)
 
     if form.is_valid():
-        user = form.save(commit=False)
-        user.set_password(user.password)
-        user.save()
+        user = form.save()
+        
         messages.success(request, 'User created')
 
         del(request.session['register_form_data'])
@@ -83,28 +82,150 @@ def dashboard(request):
         'experiences', 
         'education'
     ).filter(
-        user=request.user
+        user=request.user,
     ).first()
+    
     return render(request, 'authors/pages/dashboard.html',
     context={
-       'curriculum': curriculum,
+        'curriculum': curriculum,
+        'detail_page': True,
+        'dashboard_page_view': True
    })
 
 @login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_edit(request, id):
-    curriculum = PersonalData.objects.select_related('user', 'contact').prefetch_related(
-        'experiences', 
-        'education'
-    ).filter(
-        user=request.user,
-        pk=id
-    )
-    print(curriculum.cpf)
+def dashboard_curriculum_edit(request, id, form_type):
+    if(form_type == "ContactForm"):
+        curriculum = Contact.objects.filter(
+            person__user=request.user,
+            pk=id
+            ).first()
+    
+        form = ContactForm(
+            request.POST or None,
+            instance=curriculum
+        )
+
+    if(form_type == "EducationForm"):
+        curriculum = Education.objects.filter(
+            person__user=request.user,
+            pk=id
+        ).first()
+
+
+        form = EducationForm(
+            request.POST or None,
+            instance=curriculum
+        )
+
+    if(form_type == "ProfessionalExperienceForm"):   
+        curriculum = ProfessionalExperience.objects.filter(
+            person__user=request.user,
+            pk=id
+        ).first()
+
+
+        form = ProfessionalExperienceForm(
+            request.POST or None,
+            instance=curriculum
+        )          
+    
     if not curriculum:
+        raise Http404
+    
+    if form.is_valid():
+        curriculum = form.save(commit=False)
+        curriculum.person__user = request.user
+        curriculum.save() 
+
+        messages.success(request, 'Data updated')
+        return redirect(reverse('authors:dashboard_curriculum_edit', args=(curriculum.id, form_type)))
+
+    return render(request, 'authors/pages/dashboard_curriculum.html',
+    context={
+        'form': form,
+    })
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_curriculum_new(request, form_type):
+    personalData = PersonalData.objects.filter(user=request.user.id).first()
+
+    if(form_type == "ContactForm"):
+        form = ContactForm(
+            request.POST or None,
+        )
+
+    if(form_type == "EducationForm"):
+        form = EducationForm(
+            request.POST or None,
+        )
+
+    if(form_type == "ProfessionalExperienceForm"):   
+        form = ProfessionalExperienceForm(
+            request.POST or None,
+        )          
+    
+    if form.is_valid():
+        curriculum = form.save(commit=False)
+        curriculum.person = personalData
+        curriculum.save() 
+
+        messages.success(request, 'Data created')
+        return redirect(reverse('authors:dashboard_curriculum_edit', args=(curriculum.id, form_type)))
+
+    return render(request, 'authors/pages/dashboard_curriculum.html',
+    context={
+        'form': form,
+    })
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_curriculum_delete(request):
+    if not request.POST:
         raise Http404()
     
+    POST = request.POST
+    
+    id = POST.get('id')
+    form_type   = POST.get('type')
 
-    return render(request, 'authors/pages/dashboard_view.html',
-    context={
-       'curriculum': curriculum,
-   })
+    if(form_type == "ContactForm"):
+        curriculum = Contact.objects.filter(
+            person__user=request.user,
+            pk=id
+        ).first()
+
+    if(form_type == "EducationForm"):
+        curriculum = Education.objects.filter(
+            person__user=request.user,
+            pk=id
+        ).first()
+
+    if(form_type == "ProfessionalExperienceForm"):   
+        curriculum = ProfessionalExperience.objects.filter(
+            person__user=request.user,
+            pk=id
+        ).first()
+
+    if not curriculum:
+        raise Http404
+    
+    curriculum.delete()
+    messages.success(request, 'Delete successfully')
+    return redirect(reverse('authors:dashboard'))
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_curriculum_publish(request, id):
+    curriculum = PersonalData.objects.filter(
+        pk=id
+    ).first()
+
+    if not curriculum:
+        raise Http404
+    if curriculum.is_published:
+        curriculum.is_published = False
+    else:
+        curriculum.is_published = True
+    curriculum.save()
+    messages.success(request, 'Status updated')
+    return redirect(reverse('authors:dashboard'))

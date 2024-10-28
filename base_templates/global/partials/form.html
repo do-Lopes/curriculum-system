@@ -9,7 +9,7 @@
                         <div class="auth-register-form__grid">
                             {% for field in form %}
                             <div class="auth-register-form__field-wrapper">
-                                <div class="auth-register-form__group">
+                                <div class="auth-register-form__group {{ field.field.widget.attrs.class }}">
                                     <label for="{{ field.id_for_label }}" class="auth-register-form__label">
                                         {{ field.label }}
                                         {% if field.field.required %}
@@ -22,18 +22,18 @@
                                     </div>
                                     
                                     {% if field.help_text %}
-                                    <div class="auth-register-form__help-text">
-                                        {{ field.help_text }}
-                                    </div>
+                                        <div class="auth-register-form__help-text">
+                                            {{ field.help_text }}
+                                        </div>
                                     {% endif %}
                                     
                                     {% if field.errors %}
-                                    {% for error in field.errors %}
-                                    <div class="auth-register-form__error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                    {% endfor %}
+                                        {% for error in field.errors %}
+                                            <div class="auth-register-form__error">
+                                                <i class="bi bi-exclamation-circle"></i>
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -49,19 +49,22 @@
                         </div>
                         {% endif %}
 
-                        <div class="auth-register-form__actions">
-                            <button type="submit" class="auth-register-form__submit-btn">
-                                <i class="bi bi-send"></i>Send
-                            </button>
-                        </div>
+                        {% if dashboard_view is not True %}
+                            <div class="auth-register-form__actions">
+                                <button type="submit" class="auth-register-form__submit-btn">
+                                    <i class="bi bi-send"></i>Send
+                                </button>
+                            </div>
+                        {% else %}
+                            <div class="auth-register-form__actions">
+                                <button type="submit" class="auth-register-form__submit-btn">
+                                    <i class="bi bi-send"></i>Edit
+                                </button>
+                            </div>
+                        {% endif %}
                     </form>
                 </div>
-            </div>
-
-            <div class="auth-register-footer">
-                <i class="bi bi-shield-check"></i>
-                Your data is secure with us
-            </div>
+            </div>            
         </div>
     </div>
 </div>

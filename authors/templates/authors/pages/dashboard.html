@@ -4,47 +4,17 @@
 
 {% block content %}
     <div class="main-content center container">
-        <h2>{{ user.first_name }}'s Dashboard</h2>
+        <h2>Infos dashboard</h2>
         {% include 'global/partials/message.html' %}
+        {% if curriculum.is_published %}
+            status: public
+        {% else %}
+            status: private
+        {% endif %}
         {% include 'authors/partials/login_message.html' %}
     
         <div class="authors-dashboard-container">
-            <h3>Your curriculum</h3>   
-            {% if curriculum %} 
-            {% comment %} <a class="curriculum-more button button-dark button-full-width" href="{% url 'authors:dashboard_edit' curriculum.id %}">
-                <i class="fas fa-eye"></i>
-                <span>edit...</span>
-            </a> {% endcomment %}
-            
-            <p>{{curriculum.id}}</p>
-            {% else %}
-            <h3>n tem nadas</h3>    
-            {% endif %}    
-            
-
-            
-            {% comment %} <p>Birthday: {{ data.birthday }}</p>
-            <p>Marital Status: {{ data.marital_status }}</p>
-            <p>User: {{ data.user.username }}</ {% endcomment %}
-        {% comment %} {% empty %}
-            <p>Nenhum curriculo cadastrado</p> {% endcomment %}
-        
-
-        
-
-
-            
+            {% include 'curriculums/partials/curriculum.html' %}  
         </div>
-
-
-
     </div>
-
-    
-
-
-    
-
-
-{% comment %} {% include 'global/partials/form.html' %} {% endcomment %}
 {% endblock content %}

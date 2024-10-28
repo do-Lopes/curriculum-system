@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+.inline-form {
+    display: inline;
+}
+
+.plaintext-button {
+    display: inline;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    font-size: 1.6rem;
+}
+
+
 .curriculo-body {
     margin: 0;
     padding: 0;
@@ -383,4 +397,63 @@
 
 .link-button:hover {
     color: #0056b3;
+}
+
+.auth-register-form__input-wrapper select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23495057' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+}
+
+
+.auth-register-form__input-wrapper select:hover {
+    border-color: #b3b3b3;
+}
+
+
+.auth-register-form__input-wrapper select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+.auth-register-form__input-wrapper select:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+
+.auth-register-form__input-wrapper select::placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.auth-register-form__current-job-field {
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.auth-register-form__description-field {
+    height: 100px;
+    border-radius: 4px;
+    resize: none;
+}
+
+.auth-register-form__description-field,
+.auth-register-form__current-job-field {
+    grid-column: 1 / -1;
 }

@@ -6,51 +6,135 @@
     <div class="curriculum-person">
         <span class="curriculum-person-item">
             <i class="fas fa-envelope"></i>
-            {{ curriculum.user.email }} | {{ curriculum.contact.phone }}
+            {{ curriculum.user.email }} | 
+            {% if curriculum.contact %}
+                {{ curriculum.contact.phone }}
+                {% if dashboard_page_view %}
+                    <a href="{% url 'authors:dashboard_curriculum_edit' curriculum.id 'ContactForm' %}">
+                        <i class="fas fa-pencil"></i>
+                    </a>
+                {% endif %}
+            {% else %}
+                {% if dashboard_page_view %}
+                    <a href="{% url 'authors:dashboard_curriculum_new' 'ContactForm' %}">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                {% endif %}
+            {% endif %}
+            
         </span>
-
-        {% if curriculum.experiences.current %}
-            <div class="curriculum-content">
-                <p>{{ curriculum.experiences.last }}</p>
-            </div>
-        {% endif %}
     </div>
 
     <div class="curriculum-details-container">
-        {% if curriculum.experiences %}
+        {% if curriculum.experiences.values or dashboard_page_view %}
             <div class="curriculum-section curriculum-experience">        
-                <h4 class="curriculum-section-title"><i class="fas fa-stopwatch"></i> Experience</h4>
+                <h4 class="curriculum-section-title">
+                    <i class="fas fa-stopwatch"></i> Experience
+                    {% if dashboard_page_view %}
+                        <a href="{% url 'authors:dashboard_curriculum_new' 'ProfessionalExperienceForm' %}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    {% endif %}
+                </h4>
                 <div class="curriculum-section-text">
-                    {% if detail_page is not True %}<!--tela sem detalhe-->
+                    {% if detail_page is not True %}
                         {% for exp in curriculum.experiences.all|dictsortreversed:"start_date" %}     
                             {% if forloop.first %}
-                                <h6><b>{{ exp.position }}</b> | {{exp.company}} | {% if exp.current %}Current ✅{% else %}{{exp.start_date|date:"d/m/Y"}} - {{exp.end_date|date:"d/m/Y"}}{% endif %}</h6>
-                                <p><i>{{ exp.description|truncatechars:200 }}</i></p>
+                                <h6>
+                                    <b>{{ exp.position }}</b> | {{exp.company}} | 
+                                    {% if exp.current %}
+                                        Current ✅
+                                    {% else %}
+                                        {{exp.start_date|date:"d/m/Y"}} - {{exp.end_date|date:"d/m/Y"}}
+                                    {% endif %}
+                                </h6>
+                                <p>
+                                    <i>{{ exp.description|truncatechars:200 }}</i>
+                                </p>
                             {% endif %}    
                         {% endfor %}
                     {% else %}
                         {% for exp in curriculum.experiences.all %}
-                            <h6><b>{{ exp.position }}</b> | {{exp.company}} | {% if exp.current %}Current ✅{% else %}{{exp.start_date}} - {{exp.end_date}}{% endif %}</h6>
-                            <p><i>{{ exp.description }}</i></p>
+                            <h6>
+                                <b>{{ exp.position }}</b> | 
+                                {{exp.company}} | 
+                                {% if exp.current %}
+                                    Current ✅
+                                {% else %}
+                                    {{exp.start_date}} - {{exp.end_date}}
+                                {% endif %}
+                                {% if dashboard_page_view %}
+                                    <a href="{% url 'authors:dashboard_curriculum_edit' exp.id 'ProfessionalExperienceForm' %}">
+                                        <i class="fas fa-pencil"></i>
+                                    </a>
+                                    <form 
+                                    class="inline-form"
+                                    action="{% url 'authors:dashboard_curriculum_delete' %}"
+                                    method='POST'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ exp.id }}">
+                                        <input type="hidden" name="type" value="{{ 'ProfessionalExperienceForm' }}">
+                                        <button class="plaintext-button" type="submit">❌</button>
+                                    </form>
+                                {% endif %}
+                            </h6>
+                            <p>
+                                <i>{{ exp.description }}</i>
+                            </p>
                         {% endfor %}    
                     {% endif %}                                    
                 </div>
             </div>
         {% endif %}
             
-        {% if curriculum.education %}
+        {% if curriculum.education.values or dashboard_page_view %}
             <div class="curriculum-section curriculum-education">        
-                <h4 class="curriculum-section-title"><i class="fas fa-graduation-cap"></i> Academic Formation</h4>
+                <h4 class="curriculum-section-title">
+                    <i class="fas fa-graduation-cap"></i> Academic Formation
+                    {% if dashboard_page_view %}
+                        <a href="{% url 'authors:dashboard_curriculum_new' 'EducationForm' %}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    {% endif %}
+                </h4>
                 <div class="curriculum-section-text">
                     {% if detail_page is not True %}                
                         {% for edu in curriculum.education.all|dictsortreversed:"start_date" %}
                             {% if forloop.first %}
-                                <p><b>{{ edu.degree }}</b> | {{ edu.course }} at {{edu.institution}} | {% if edu.in_progress %}Current ✅{% else %}{{edu.start_date}} - {{edu.completion_date}}{% endif %}</p>
+                                <p>
+                                    <b>{{ edu.degree }}</b> | {{ edu.course }} at {{edu.institution}} | 
+                                    {% if edu.in_progress %}
+                                        Current ✅
+                                    {% else %}
+                                        {{edu.start_date}} - {{edu.completion_date}}
+                                    {% endif %}                                    
+                                </p>
                             {% endif %}                            
                         {% endfor %}        
                     {% else %}
                         {% for edu in curriculum.education.all %}
-                            <p><b>{{ edu.degree }}</b> | {{ edu.course }} at {{edu.institution}} | {% if edu.in_progress %}Current ✅{% else %}{{edu.start_date}} - {{edu.completion_date}}{% endif %}</p>
+                            <h6>
+                                <b>{{ edu.degree }}</b> | {{ edu.course }} at {{edu.institution}} | 
+                                {% if edu.in_progress %}
+                                    Current ✅
+                                {% else %}
+                                    {{edu.start_date}} - {{edu.completion_date}}
+                                {% endif %}
+                                {% if dashboard_page_view %}
+                                    <a href="{% url 'authors:dashboard_curriculum_edit' edu.id 'EducationForm' %}">
+                                        <i class="fas fa-pencil"></i>
+                                    </a>
+                                    <form 
+                                    class="inline-form"
+                                    action="{% url 'authors:dashboard_curriculum_delete' %}"
+                                    method='POST'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ edu.id }}">
+                                        <input type="hidden" name="type" value="{{ 'EducationForm' }}">
+                                        <button class="plaintext-button" type="submit">❌</button>
+                                    </form>
+                                {% endif %}
+                            </h6>
                         {% endfor %}                
                     {% endif %}
                 </div>
@@ -65,5 +149,17 @@
                 <span>see more...</span>
             </a>
         </footer>
-    {% endif %}    
+    {% endif %}
+    {% if dashboard_page_view %}
+        <footer class="curriculum-footer">
+            <a class="curriculum-more button button-dark button-full-width" href="{% url 'authors:dashboard_curriculum_publish' curriculum.id %}">
+                <i class="bi bi-send"></i>
+                {% if curriculum.is_published %}
+                    <span>remove</span>
+                {% else %}
+                    <span>share</span>
+                {% endif %}                
+            </a>
+        </footer>
+    {% endif %}
 </div>

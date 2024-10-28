@@ -4,17 +4,12 @@
 
 {% block content %}
     <div class="main-content center container">
-        <h2>{{ user.first_name }}'s curriculum Dashboard</h2>
+        <h2>Infos Edit</h2>
         {% include 'global/partials/message.html' %}
-        {% include 'authors/partials/login_message.html' %}
-        {% include 'global/partials/form.html' %}
+        {% include 'authors/partials/login_message.html' %}   
+        <div class="authors-dashboard-container">
+            {% include 'global/partials/form.html' %}
+        </div>
     </div>
 
-    
-
-
-    
-
-
-{% include 'global/partials/form.html' %}
 {% endblock content %}

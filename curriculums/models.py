@@ -16,6 +16,7 @@ class PersonalData(models.Model):
             )
         ]
     )
+    is_published = models.BooleanField(default=False)
     marital_status = models.CharField(
         max_length=20,
         choices=[
