@@ -10,8 +10,8 @@ urlpatterns = [
     path('login/create/', views.login_create, name='login_create'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('dashboard/curriculum/publish/<int:id>', views.dashboard_curriculum_publish, name='dashboard_curriculum_publish'),
     path('dashboard/curriculum/delete/', views.dashboard_curriculum_delete, name='dashboard_curriculum_delete'),
+    path('dashboard/curriculum/publish/<int:id>', views.dashboard_curriculum_publish, name='dashboard_curriculum_publish'),
     path('dashboard/curriculum/new/<str:form_type>', views.dashboard_curriculum_new, name='dashboard_curriculum_new'),
     path('dashboard/curriculum/edit/<int:id>/<str:form_type>', views.dashboard_curriculum_edit, name='dashboard_curriculum_edit'),
 ]

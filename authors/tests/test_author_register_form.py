@@ -48,7 +48,7 @@ class AuthorRegisterFormUnitTest(TestCase):
         current = form[field].label
         self.assertEqual(current, needed)
 
-class AuthorRegisterFormIntegrationTeste(DjangoTestCase):
+class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     def setUp(self, *args, **kwargs):
         self.form_data = {
             'username': 'user',
